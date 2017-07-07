@@ -6,12 +6,15 @@ var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var router = express.Router();
+var db = require('common/db');
 
 module.exports = {
     start: function (app, config, entry) {
         app.engine('.html', require('ejs').__express);
         app.set('view engine', 'ejs');
         app.set('views', path.join(__dirname, config.viewPath));
+
+        db.connect();
 
         app.use(cookieParser());
 
